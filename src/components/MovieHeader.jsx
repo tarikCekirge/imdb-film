@@ -1,8 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const MovieHeader = (props) => {
-  const appTitle = 'Title buraya gelecek';
+  const appTitle = useSelector(store => store.movies.appTitle)
   const displayFavorites = true;
 
   return (
