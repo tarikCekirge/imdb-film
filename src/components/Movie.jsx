@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { deleteMovie } from '../store/actions/movieActions';
+import { addFavorite, removeFavorite } from '../store/actions/favoritesActions';
 
 const Movie = (props) => {
   const dispatch = useDispatch()
@@ -9,12 +10,24 @@ const Movie = (props) => {
   const { push } = useHistory();
 
   const movies = useSelector(store => store.movies.movies);
+  const favorites = useSelector((store) => store.favorites.favorites);
   const movie = movies.find((movie) => movie.id === Number(id));
 
   const handleDeleteMovie = (id) => {
+    dispatch(removeFavorite(movie.id))
     dispatch(deleteMovie(id));
     push('/movies');
   };
+
+
+  const handleAddFavorite = (movie) => {
+    if (!favorites.some((favMovie) => favMovie.id === movie.id)) {
+      dispatch(addFavorite(movie));
+    } else {
+      console.log('Bu film zaten favorilerde!');
+    }
+  };
+
 
   return (
     <div className="bg-white rounded-md shadow flex-1">
@@ -47,7 +60,7 @@ const Movie = (props) => {
         <button onClick={() => handleDeleteMovie(movie.id)} type="button" className="myButton bg-red-600 hover:bg-red-500">
           Sil
         </button>
-        <button className="myButton bg-blue-600 hover:bg-blue-500 ">
+        <button onClick={() => handleAddFavorite(movie)} className="myButton bg-blue-600 hover:bg-blue-500">
           Favorilere ekle
         </button>
       </div>

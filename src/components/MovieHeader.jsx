@@ -1,17 +1,25 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { toggleFavorites } from '../store/actions/favoritesActions';
 
 const MovieHeader = (props) => {
+  const dispatch = useDispatch()
   const appTitle = useSelector(store => store.movies.appTitle)
-  const displayFavorites = true;
+  const displayFavorites = useSelector((store) => store.favorites.displayFavorites);
+  const handleToggleFavorites = () => {
+    dispatch(toggleFavorites());
+  };
 
   return (
     <div className="flex justify-between items-center shadow rounded-md bg-white p-2 pl-3 my-3">
-      <h2 className="text-zinc-600">{appTitle}</h2>
+      <h2 className="text-zinc-600"><Link to='/'>{appTitle}</Link></h2>
       <div className="flex items-center gap-2">
-        <div className="myButton bg-blue-600 hover:bg-blue-500">
-          <span>Favorileri {displayFavorites ? 'gizle' : 'göster'}</span>
+        <div
+          onClick={handleToggleFavorites}
+          className="myButton bg-blue-600 hover:bg-blue-500 cursor-pointer"
+        >
+          <span> {displayFavorites ? 'Favorileri gizle' : 'Favorileri göster'}</span>
         </div>
         <Link to="/movies" className="myButton bg-blue-600 hover:bg-blue-500">
           Tüm filmler
