@@ -19,7 +19,7 @@ const MovieHeader = (props) => {
           onClick={handleToggleFavorites}
           className="myButton bg-blue-600 hover:bg-blue-500 cursor-pointer"
         >
-          <span> {displayFavorites ? 'Favorileri gizle' : 'Favorileri göster'}</span>
+          <span>Favorileri {displayFavorites ? 'gizle' : 'göster'}</span>
         </div>
         <Link to="/movies" className="myButton bg-blue-600 hover:bg-blue-500">
           Tüm filmler

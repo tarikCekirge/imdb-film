@@ -9,9 +9,10 @@ import MovieHeader from './components/MovieHeader';
 
 import AddMovieForm from './components/AddMovieForm';
 import FavoriteMovieList from './components/FavoriteMovieList';
+import { useSelector } from 'react-redux';
 
 const App = (props) => {
-  const displayFavorites = true;
+  const displayFavorites = useSelector((state) => state.favorites.displayFavorites);
 
   return (
     <div>
@@ -22,6 +23,7 @@ const App = (props) => {
       <div className="max-w-4xl mx-auto px-3 pb-4">
         <MovieHeader />
         <div className="flex flex-col sm:flex-row gap-4">
+
           {displayFavorites && <FavoriteMovieList />}
 
           <Switch>
